@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harshvinder Singh — Data Analyst &amp; ML Researcher</title>
+<meta name="description" content="Portfolio of Harshvinder Singh — M.Tech Computer Science (Data Science), researcher and builder of data-driven systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d10;
+    --bg-alt: #0f1317;
+    --surface: #141a1f;
+    --surface-2: #1b2228;
+    --line: #232b31;
+    --text: #eef1f0;
+    --text-dim: #9aa5a8;
+    --text-faint: #5f6b6f;
+    --signal: #e8a33d;
+    --signal-dim: #8a672a;
+    --violet: #9d8cff;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--signal); color:#0a0d10; }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  section{ position:relative; }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--signal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px; height:1px;
+    background:var(--signal-dim);
+  }
+
+  h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; }
+
+  /* ---------- Noise / grid backdrop ---------- */
+  .grid-backdrop{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    backdrop-filter:blur(14px);
+    background:rgba(10,13,16,0.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease;
+  }
+  header.scrolled{ border-bottom-color:var(--line); }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    font-family:var(--font-mono); font-size:15px; font-weight:500;
+    color:var(--text); display:flex; align-items:center; gap:8px;
+  }
+  .logo .dot{ width:6px; height:6px; border-radius:50%; background:var(--signal);
+    box-shadow:0 0 0 4px rgba(232,163,61,0.15); }
+  .nav-links{ display:flex; gap:36px; }
+  .nav-links a{
+    font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:.08em; position:relative;
+    padding:4px 0; transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--signal); transition:width .25s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{ color:var(--text); }
+  .nav-links a.active::after{ width:100%; }
+
+  .nav-cta{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.06em;
+    border:1px solid var(--line); padding:9px 16px; border-radius:3px;
+    color:var(--text); transition:all .25s ease; white-space:nowrap;
+  }
+  .nav-cta:hover{ border-color:var(--signal); color:var(--signal); }
+
+  .nav-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+  .nav-toggle span{ width:22px; height:1.5px; background:var(--text); }
+
+  .mobile-menu{
+    position:fixed; inset:0; background:var(--bg); z-index:99;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+    transform:translateY(-100%); transition:transform .35s ease; 
+  }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{ font-family:var(--font-display); font-size:28px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    position:relative; padding:140px 0 80px;
+  }
+  .hero-wave{
+    position:absolute; left:0; right:0; bottom:0; height:280px; z-index:0;
+    opacity:.55; pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:1; }
+  .hero .eyebrow{ margin-bottom:28px; }
+  .hero h1{
+    font-size:clamp(44px, 8vw, 96px);
+    line-height:0.98;
+    color:var(--text);
+  }
+  .hero h1 .accent{ color:var(--signal); }
+  .hero-role{
+    font-family:var(--font-mono); font-size:clamp(14px, 2vw, 18px);
+    color:var(--text-dim); margin-top:26px; max-width:640px;
+    letter-spacing:.02em;
+  }
+  .hero-desc{
+    margin-top:18px; max-width:560px; color:var(--text-dim); font-size:16px;
+  }
+  .hero-actions{ display:flex; gap:16px; margin-top:44px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.04em;
+    padding:14px 26px; border-radius:3px; display:inline-flex; align-items:center; gap:10px;
+    transition:all .25s ease; border:1px solid transparent;
+  }
+  .btn-primary{ background:var(--signal); color:#0a0d10; font-weight:500; }
+  .btn-primary:hover{ background:#f2b558; transform:translateY(-2px); }
+  .btn-ghost{ border-color:var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--text-dim); transform:translateY(-2px); }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:32px; display:flex; align-items:center; gap:12px;
+    font-family:var(--font-mono); font-size:11px; color:var(--text-faint); letter-spacing:.15em;
+    text-transform:uppercase;
+  }
+  .scroll-cue .line{ width:1px; height:34px; background:linear-gradient(to bottom, var(--text-faint), transparent);
+    animation: pulse-line 2.2s ease-in-out infinite; }
+  @keyframes pulse-line{ 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ---------- Stats strip ---------- */
+  .stats{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:0;
+  }
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:36px 32px; border-right:1px solid var(--line);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat-num{
+    font-family:var(--font-display); font-size:clamp(26px,3vw,38px); color:var(--text);
+  }
+  .stat-num span{ color:var(--signal); }
+  .stat-label{
+    font-family:var(--font-mono); font-size:12px; color:var(--text-dim); margin-top:8px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+
+  /* ---------- Section heading pattern ---------- */
+  .section-pad{ padding:120px 0; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:64px; gap:24px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(30px,4vw,46px); }
+  .section-head p{ color:var(--text-dim); max-width:380px; font-size:15px; }
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:start; }
+  .about-text p{ color:var(--text-dim); font-size:17px; margin-bottom:20px; max-width:520px; }
+  .about-text strong{ color:var(--text); font-weight:600; }
+  .focus-list{ display:flex; flex-direction:column; gap:0; margin-top:8px; }
+  .focus-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 0; border-bottom:1px solid var(--line);
+    font-family:var(--font-mono); font-size:13px;
+  }
+  .focus-item:first-child{ border-top:1px solid var(--line); }
+  .focus-item .n{ color:var(--text-faint); }
+  .focus-item .t{ color:var(--text); flex:1; margin-left:18px; }
+
+  /* ---------- Education timeline ---------- */
+  .timeline{ position:relative; padding-left:36px; }
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:var(--line);
+  }
+  .tl-item{ position:relative; padding-bottom:52px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:''; position:absolute; left:-36px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--bg); border:2px solid var(--signal);
+  }
+  .tl-year{ font-family:var(--font-mono); font-size:12px; color:var(--signal); letter-spacing:.06em; }
+  .tl-title{ font-family:var(--font-display); font-size:22px; margin-top:8px; color:var(--text); }
+  .tl-sub{ color:var(--text-dim); font-size:14px; margin-top:6px; }
+  .tl-score{
+    display:inline-block; margin-top:12px; font-family:var(--font-mono); font-size:12px;
+    color:var(--text-dim); border:1px solid var(--line); padding:5px 12px; border-radius:20px;
+  }
+
+  /* ---------- Research ---------- */
+  .paper-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:36px; margin-bottom:24px; display:grid; grid-template-columns:120px 1fr auto; gap:28px;
+    align-items:start; cursor:pointer; transition:border-color .25s ease, transform .25s ease, background .25s ease;
+  }
+  .paper-card:hover{ border-color:var(--signal-dim); transform:translateY(-3px); background:var(--surface-2); }
+  .paper-tag{
+    font-family:var(--font-mono); font-size:11px; color:var(--bg); background:var(--signal);
+    display:inline-flex; align-items:center; justify-content:center; height:26px; padding:0 10px;
+    border-radius:3px; letter-spacing:.05em; text-transform:uppercase; align-self:start;
+  }
+  .paper-tag.pending{ background:var(--violet); }
+  .paper-title{ font-size:22px; color:var(--text); margin-bottom:10px; line-height:1.3; }
+  .paper-meta{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-bottom:16px; }
+  .paper-desc{ color:var(--text-dim); font-size:15px; max-width:640px; }
+  .paper-link{
+    margin-top:18px; display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:12px; color:var(--signal); letter-spacing:.04em;
+  }
+  .paper-link svg{ width:12px; height:12px; }
+  .paper-arrow{
+    align-self:center; width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; color:var(--text-dim); flex-shrink:0;
+    transition:all .25s ease;
+  }
+  .paper-card:hover .paper-arrow{ border-color:var(--signal); color:var(--signal); transform:rotate(45deg); }
+  .paper-arrow svg{ width:14px; height:14px; }
+
+  /* ---------- Paper modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(6,7,9,0.82); backdrop-filter:blur(6px);
+    z-index:300; display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-panel{
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:10px;
+    max-width:880px; width:100%; max-height:88vh; overflow-y:auto; position:relative;
+    transform:translateY(16px) scale(.98); transition:transform .3s ease;
+    padding:44px;
+  }
+  .modal-overlay.open .modal-panel{ transform:translateY(0) scale(1); }
+  .modal-close{
+    position:absolute; top:28px; right:28px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    color:var(--text-dim); transition:all .2s ease; background:none; cursor:pointer;
+  }
+  .modal-close:hover{ border-color:var(--signal); color:var(--signal); transform:rotate(90deg); }
+  .modal-panel .paper-tag{ margin-bottom:18px; }
+  .modal-panel h3{ font-family:var(--font-display); font-size:clamp(24px,4vw,32px); line-height:1.25; margin-bottom:14px; padding-right:40px; }
+  .modal-meta{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-bottom:8px; }
+  .modal-authors{ font-size:14px; color:var(--text-dim); margin-bottom:28px; }
+  .modal-section-label{
+    font-family:var(--font-mono); font-size:11px; color:var(--signal); text-transform:uppercase;
+    letter-spacing:.1em; margin:28px 0 12px;
+  }
+  .modal-body p{ color:var(--text-dim); font-size:15.5px; line-height:1.75; }
+  .modal-keywords{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .modal-actions{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+
+  /* ---------- Scroll progress + cursor glow ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:2px; background:var(--signal);
+    z-index:200; width:0%; box-shadow:0 0 12px rgba(232,163,61,.6);
+  }
+  .cursor-glow{
+    position:fixed; width:420px; height:420px; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle, rgba(232,163,61,0.06) 0%, transparent 70%);
+    z-index:1; transform:translate(-50%,-50%); opacity:0;
+  }
+  .typed-cursor{ display:inline-block; width:2px; background:var(--signal); margin-left:2px; animation:blink 1s step-end infinite; }
+  @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  /* ---------- Projects ---------- */
+  .project-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .project-card{
+    background:var(--bg-alt); padding:38px; transition:background .3s ease;
+  }
+  .project-card:hover{ background:var(--surface); }
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; }
+  .project-index{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); }
+  .project-date{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); }
+  .project-title{ font-size:21px; color:var(--text); margin-bottom:12px; }
+  .project-desc{ color:var(--text-dim); font-size:14.5px; margin-bottom:20px; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11px; color:var(--text-dim);
+    border:1px solid var(--line); padding:5px 10px; border-radius:20px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+  .skill-group-title{
+    font-family:var(--font-mono); font-size:12px; color:var(--signal); text-transform:uppercase;
+    letter-spacing:.08em; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--line);
+  }
+  .skill-list{ display:flex; flex-direction:column; gap:12px; }
+  .skill-list li{ font-size:14.5px; color:var(--text-dim); display:flex; align-items:center; gap:10px; }
+  .skill-list li::before{ content:''; width:4px; height:4px; background:var(--text-faint); border-radius:50%; flex-shrink:0; }
+
+  /* ---------- Achievements ---------- */
+  .achieve-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+  .achieve-card{
+    border:1px solid var(--line); border-radius:6px; padding:32px; background:var(--surface);
+  }
+  .achieve-card .mark{ font-family:var(--font-mono); font-size:12px; color:var(--signal); margin-bottom:14px; display:block; }
+  .achieve-card p{ color:var(--text-dim); font-size:15px; }
+
+  /* ---------- Contact ---------- */
+  .contact-section{
+    background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .contact-head{ text-align:center; max-width:640px; margin:0 auto 64px; }
+  .contact-head h2{ font-size:clamp(32px,5vw,52px); margin-bottom:18px; }
+  .contact-head p{ color:var(--text-dim); font-size:16px; }
+  .contact-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .contact-card{
+    background:var(--bg-alt); padding:34px 26px; display:flex; flex-direction:column; gap:16px;
+    transition:background .25s ease; cursor:pointer;
+  }
+  .contact-card:hover{ background:var(--surface-2); }
+  .contact-icon{
+    width:38px; height:38px; border:1px solid var(--line); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color:var(--signal);
+    transition:border-color .25s ease;
+  }
+  .contact-card:hover .contact-icon{ border-color:var(--signal); }
+  .contact-icon svg{ width:16px; height:16px; }
+  .contact-label{ font-family:var(--font-mono); font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.08em; }
+  .contact-value{ font-size:14.5px; color:var(--text); word-break:break-word; }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:40px 0; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-row p{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); }
+  .back-top{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+  .back-top:hover{ color:var(--signal); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .nav-links, .nav-cta{ display:none; }
+    .nav-toggle{ display:flex; }
+    .about-grid{ grid-template-columns:1fr; gap:48px; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); }
+    .stat{ border-bottom:1px solid var(--line); }
+    .project-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:repeat(2,1fr); }
+    .achieve-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:repeat(2,1fr); }
+    .paper-card{ grid-template-columns:1fr; }
+    .paper-arrow{ display:none; }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding:0 20px; }
+    nav{ padding:16px 20px; }
+    .section-pad{ padding:80px 0; }
+    .stats-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .modal-panel{ padding:28px; }
+    .cursor-glow{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-backdrop"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<header id="site-header">
+  <nav>
+    <a href="#top" class="logo"><span class="dot"></span>HARSHVINDER SINGH</a>
+    <ul class="nav-links">
+      <li><a href="#about" data-nav>About</a></li>
+      <li><a href="#education" data-nav>Education</a></li>
+      <li><a href="#research" data-nav>Research</a></li>
+      <li><a href="#projects" data-nav>Projects</a></li>
+      <li><a href="#skills" data-nav>Skills</a></li>
+      <li><a href="#contact" data-nav>Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#research">Research</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <svg class="hero-wave" viewBox="0 0 1180 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path id="wavePath" d="M0,200 C 150,140 300,260 450,180 C 600,100 750,220 900,150 C 1000,110 1100,190 1180,160" 
+        fill="none" stroke="#e8a33d" stroke-width="1.2" opacity="0.55"/>
+      <path d="M0,220 C 150,180 300,240 450,210 C 600,170 750,230 900,190 C 1000,170 1100,210 1180,190" 
+        fill="none" stroke="#9d8cff" stroke-width="1" opacity="0.25"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="eyebrow">Portfolio — Punjab, India</div>
+      <h1>Harshvinder<br>Sin<span class="accent">g</span>h</h1>
+      <p class="hero-role"><span id="heroRole"></span><span class="typed-cursor">&nbsp;</span></p>
+      <p class="hero-desc">M.Tech Computer Science (Data Science) candidate turning raw data into decisions — dashboards, ETL pipelines, and research at the edge of simulation and AI.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#research" class="btn btn-ghost">Read research</a>
+        <a href="#contact" class="btn btn-ghost">Contact me</a>
+      </div>
+    </div>
+    <div class="scroll-cue"><span class="line"></span>Scroll</div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat"><div class="stat-num">7.<span>4</span></div><div class="stat-label">M.Tech CGPA</div></div>
+      <div class="stat"><div class="stat-num"><span>3</span></div><div class="stat-label">Research Papers</div></div>
+      <div class="stat"><div class="stat-num"><span>4</span>+</div><div class="stat-label">Projects Shipped</div></div>
+      <div class="stat"><div class="stat-num">3<span>80</span>th</div><div class="stat-label">LeetCode Weekly Rank</div></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">01 — About</div>
+        <h2>From messy data to<br>working systems.</h2>
+      </div>
+      <p>I like taking ambiguous data problems and shipping something a real user can act on — whether that's a dashboard, a pipeline, or a research prototype.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>Master's student in Computer Science (Data Science)</strong> at Lovely Professional University, building on a Bachelor's in the same field. My work sits at the intersection of <strong>data analytics, data engineering, and machine learning</strong> — I enjoy turning raw, unstructured data into dashboards, pipelines, and decisions people actually use.</p>
+        <p>Alongside applied dashboard work, I research further out — simulating black hole dynamics with efficient data structures, and prototyping neurosymbolic, world-model-based architectures for embodied AI. I care about work that's rigorous enough to publish and practical enough to ship.</p>
+      </div>
+      <div class="focus-list reveal">
+        <div class="focus-item"><span class="n">01</span><span class="t">Data Analytics &amp; Business Intelligence</span></div>
+        <div class="focus-item"><span class="n">02</span><span class="t">ETL &amp; Data Engineering</span></div>
+        <div class="focus-item"><span class="n">03</span><span class="t">Machine Learning &amp; Predictive Modeling</span></div>
+        <div class="focus-item"><span class="n">04</span><span class="t">Simulation &amp; Computational Research</span></div>
+        <div class="focus-item"><span class="n">05</span><span class="t">Cloud &amp; Dev Tooling (AWS, GCP, Docker)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">02 — Education</div>
+        <h2>Academic timeline</h2>
+      </div>
+      <p>Two degrees in Computer Science at Lovely Professional University, built on a science-track schooling foundation in Lucknow.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-year">Aug 2024 — 2026</div>
+        <div class="tl-title">Master of Technology, Computer Science</div>
+        <div class="tl-sub">Lovely Professional University · Jalandhar, Punjab</div>
+        <span class="tl-score">CGPA 7.4</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Aug 2020 — 2024</div>
+        <div class="tl-title">Bachelor of Technology, Computer Science</div>
+        <div class="tl-sub">Lovely Professional University · Jalandhar, Punjab</div>
+        <span class="tl-score">CGPA 6.5</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2020</div>
+        <div class="tl-title">12th Board (ICSE)</div>
+        <div class="tl-sub">City Montessori School · Lucknow, Uttar Pradesh</div>
+        <span class="tl-score">89.4%</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2018</div>
+        <div class="tl-title">10th Board (ICSE)</div>
+        <div class="tl-sub">City Montessori School · Lucknow, Uttar Pradesh</div>
+        <span class="tl-score">89.0%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">03 — Research</div>
+        <h2>Published &amp; ongoing work</h2>
+      </div>
+      <p>Computational research spanning astrophysical simulation, planetary-scale information theory, and embodied artificial intelligence. Click a paper to read the introduction or download the full PDF.</p>
+    </div>
+
+    <div class="paper-card reveal" onclick="openPaper('blackhole')" role="button" tabindex="0">
+      <span class="paper-tag">Published</span>
+      <div>
+        <div class="paper-title">Algorithmic Horizons: Integrating Advanced Data Structures into Black Hole Simulation</div>
+        <div class="paper-meta">IEEE 7th International Conference on Cybernetics, Cognition and Machine Learning Applications (ICCCMLA) · Hamburg, Germany · Nov 2025</div>
+        <p class="paper-desc">Encodes black hole physics as computation — event horizons as dynamic graphs, accretion disks as heaps and priority queues, spacetime curvature as sparse tensors.</p>
+      </div>
+      <div class="paper-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
+    </div>
+
+    <div class="paper-card reveal" onclick="openPaper('gaiaq')" role="button" tabindex="0">
+      <span class="paper-tag pending">Research Manuscript</span>
+      <div>
+        <div class="paper-title">GAIA-Q: A Quantum-Coherent Atmospheric Framework for Planetary-Scale Information Processing</div>
+        <div class="paper-meta">Independent Research · Lovely Professional University</div>
+        <p class="paper-desc">A four-layer theoretical model treating Earth's atmosphere-biosphere-ionosphere system as a planetary-scale information architecture.</p>
+      </div>
+      <div class="paper-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
+    </div>
+
+    <div class="paper-card reveal" onclick="openPaper('agi')" role="button" tabindex="0">
+      <span class="paper-tag pending">Research Manuscript</span>
+      <div>
+        <div class="paper-title">AGI-Guided Reinforcement Learning for Intelligent Resource Control in Future Wireless Systems</div>
+        <div class="paper-meta">Embodied AGI Framework using World Models &amp; Neurosymbolic AI · Independent Research</div>
+        <p class="paper-desc">A modular embodied-AGI architecture combining world models, differentiable memory, neurosymbolic reasoning, and meta-learning.</p>
+      </div>
+      <div class="paper-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></div>
+    </div>
+  </section>
+
+  <!-- PAPER MODAL -->
+  <div class="modal-overlay" id="paperModal">
+    <div class="modal-panel">
+      <button class="modal-close" onclick="closePaper()" aria-label="Close">✕</button>
+      <span class="paper-tag" id="modalTag"></span>
+      <h3 id="modalTitle"></h3>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-authors" id="modalAuthors"></div>
+      <div class="modal-section-label">Introduction</div>
+      <div class="modal-body"><p id="modalIntro"></p></div>
+      <div class="modal-section-label">Keywords</div>
+      <div class="modal-keywords" id="modalKeywords"></div>
+      <div class="modal-actions">
+        <a class="btn btn-primary" id="modalDownload" download>Download PDF</a>
+        <a class="btn btn-ghost" id="modalRead" target="_blank" rel="noopener">Read in browser</a>
+        <a class="btn btn-ghost" id="modalExternal" target="_blank" rel="noopener" style="display:none">View on IEEE Xplore</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">04 — Projects</div>
+        <h2>Selected work</h2>
+      </div>
+      <p>Dashboards and systems built to turn raw datasets into decisions — see the full list on GitHub.</p>
+    </div>
+    <div class="project-grid reveal">
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">01</span><span class="project-date">Jan — Apr 2025</span></div>
+        <div class="project-title">Pokémon Analytics Dashboard</div>
+        <p class="project-desc">Interactive analytics dashboard integrating Pokémon statistics, comparative visualizations, filtering systems, and sprite-based rendering, with dynamic Plotly charts and Leaflet-based exploration tuned for performance across modules.</p>
+        <div class="tag-row"><span class="tag">R</span><span class="tag">Shiny</span><span class="tag">Plotly</span><span class="tag">Leaflet</span><span class="tag">dplyr</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">02</span><span class="project-date">Feb — May 2025</span></div>
+        <div class="project-title">Customer Support Ticket Analytics Dashboard</div>
+        <p class="project-desc">Power BI dashboard for support ticket analysis with predictive analytics and operational KPI monitoring — escalation trends, resolution time, and CSAT — backed by automated Python/SQL ETL pipelines for real-time reporting.</p>
+        <div class="tag-row"><span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">SQL</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">03</span><span class="project-date">Jan — Apr 2025</span></div>
+        <div class="project-title">European Luxury Hotel Recommendation Dashboard</div>
+        <p class="project-desc">Multi-tab Shiny dashboard for luxury hotel analytics — recommendation logic, pricing insights, and geospatial exploration — with interactive Plotly and Leaflet map systems built for real-time comparison.</p>
+        <div class="tag-row"><span class="tag">R</span><span class="tag">Shiny</span><span class="tag">Plotly</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">04</span><span class="project-date">Mar 2025 — Present</span></div>
+        <div class="project-title">Embodied AGI Framework</div>
+        <p class="project-desc">World-model and neurosymbolic AI architecture for embodied agents — continual learning via meta-learning and reinforcement learning, with a cognitive pipeline spanning perception, reasoning, planning, and long-term memory.</p>
+        <div class="tag-row"><span class="tag">DreamerV3</span><span class="tag">Neurosymbolic AI</span><span class="tag">MAML</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">05 — Skills</div>
+        <h2>Toolkit</h2>
+      </div>
+      <p>Languages, frameworks, and tools I reach for day to day.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div>
+        <div class="skill-group-title">Languages</div>
+        <ul class="skill-list">
+          <li>Java</li><li>Python</li><li>SQL (Postgres)</li><li>JavaScript</li><li>HTML / CSS</li><li>R</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-title">Frameworks</div>
+        <ul class="skill-list">
+          <li>React</li><li>Node.js</li><li>Flask</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-title">Dev Tools</div>
+        <ul class="skill-list">
+          <li>Git</li><li>Docker</li><li>Power BI</li><li>Google Cloud Platform</li><li>VS Code</li><li>PyCharm / IntelliJ / Eclipse</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-group-title">Libraries</div>
+        <ul class="skill-list">
+          <li>pandas</li><li>NumPy</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="section-pad wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">06 — Achievements</div>
+        <h2>Recognition</h2>
+      </div>
+    </div>
+    <div class="achieve-grid reveal">
+      <div class="achieve-card">
+        <span class="mark">Hackathon</span>
+        <p><strong style="color:var(--text)">Finalist, HackVerse Hackathon</strong> — developed a team-based workflow automation app adopted by 12+ users during the event.</p>
+      </div>
+      <div class="achieve-card">
+        <span class="mark">Competitive Programming</span>
+        <p><strong style="color:var(--text)">Rank 380 / 30,708</strong> — LeetCode Weekly Contest 470, solving all problems and gaining a +99 rating boost.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section section-pad">
+    <div class="wrap">
+      <div class="contact-head reveal">
+        <div class="eyebrow" style="justify-content:center">07 — Contact</div>
+        <h2>Let's build something<br>with data.</h2>
+        <p>Open to opportunities in data analytics, data engineering, and applied ML research. Reach out through whichever works best for you.</p>
+      </div>
+      <div class="contact-grid reveal">
+        <a class="contact-card" href="mailto:singh.harshvinder2000@gmail.com">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 7 9-7M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg></div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">singh.harshvinder2000@gmail.com</div>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/harshvindersingh15" target="_blank" rel="noopener">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H2v12h4V9zM4 6a2 2 0 100-4 2 2 0 000 4zM22 21v-6.5a4.5 4.5 0 00-4.5-4.5c-1.2 0-2.3.6-3 1.5V9h-4v12h4v-6.5a1.5 1.5 0 013 0V21h4.5z"/></svg></div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">linkedin.com/in/harshvindersingh15</div>
+        </a>
+        <a class="contact-card" href="https://github.com/HARSHVINDER-SINGH" target="_blank" rel="noopener">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">HARSHVINDER-SINGH</div>
+        </a>
+        <a class="contact-card" href="tel:+917275172844">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+91 72751 72844</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <div class="footer-row">
+      <p>© 2026 Harshvinder Singh. Built with data, coffee, and a bit of relativity.</p>
+      <a href="#top" class="back-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // ---------- Papers data ----------
+  const PAPERS = {
+    blackhole: {
+      tag: 'Published', tagClass: '',
+      title: 'Algorithmic Horizons: Integrating Advanced Data Structures into Black Hole Simulation',
+      meta: 'IEEE 7th International Conference on Cybernetics, Cognition and Machine Learning Applications (ICCCMLA) · Hamburg, Germany · Nov 2025',
+      authors: 'Harshvinder Singh, Himanshu · Lovely Professional University',
+      intro: 'This paper proposes a modular simulation framework that pairs advanced data structures with relativistic physics to make black hole simulation more scalable. The event horizon is modeled as a dynamic graph, accretion disk dynamics run through heaps and priority queues, and spacetime curvature is represented with sparse multidimensional tensors, with high-order solvers (symplectic Verlet, fourth-order Runge-Kutta) handling temporal accuracy. Built on a hybrid Python/C++ backend with GPU acceleration, the system targets both Schwarzschild and Kerr black holes and reports notable gains in runtime and memory efficiency without sacrificing physical accuracy — pointing toward AI-assisted, real-time astrophysical visualization.',
+      keywords: ['Black Hole Simulation', 'Data Structures & Algorithms', 'Computational Astrophysics', 'Graph Theory', 'Numerical Relativity', 'GPU Acceleration'],
+      pdf: 'papers/algorithmic-horizons-black-hole-simulation.pdf',
+      external: 'https://ieeexplore.ieee.org/document/11581092',
+      externalLabel: 'View on IEEE Xplore'
+    },
+    gaiaq: {
+      tag: 'Research Manuscript', tagClass: 'pending',
+      title: 'GAIA-Q: A Quantum-Coherent Atmospheric Framework for Planetary-Scale Information Processing',
+      meta: 'Independent Research · Lovely Professional University',
+      authors: 'Harshvinder Singh · Lovely Professional University',
+      intro: 'GAIA-Q extends the classical Gaia hypothesis into a physically grounded, four-layer model of Earth as a distributed information-processing system. It combines quantum coherence in atmospheric photon scattering, Schumann-resonance electromagnetics acting as a global communication backbone, entropy-based atmospheric information transport, and biospheric feedback functioning as a cybernetic control layer. Using coherence-length and Shannon-entropy formalisms across these layers, the work argues the coupled Earth system shows sensing, encoding, transmission, and feedback behavior consistent with large-scale distributed computation — and proposes this as architectural inspiration for self-organizing, resilient AGI systems.',
+      keywords: ['Quantum Coherence', 'Schumann Resonance', 'Atmospheric Electrodynamics', 'Cyber-Physical Systems', 'Information Theory', 'Gaia Hypothesis'],
+      pdf: 'papers/gaia-q-planetary-information-processing.pdf'
+    },
+    agi: {
+      tag: 'Research Manuscript', tagClass: 'pending',
+      title: 'AGI-Guided Reinforcement Learning for Intelligent Resource Control in Future Wireless Systems',
+      meta: 'Embodied AGI Framework using World Models & Neurosymbolic AI · Independent Research',
+      authors: 'Harshvinder Singh, Himanshu · Lovely Professional University',
+      intro: 'This paper presents a modular architecture for embodied general intelligence that fuses a DreamerV3-style world model for internal simulation and planning, a Differentiable Neural Computer for structured long-term memory, and a neurosymbolic reasoning layer bridging latent representations with symbolic logic. A meta-learning module (MAML/Reptile) enables fast few-shot adaptation to new tasks, while a MuZero/PPO control layer handles final action selection — together forming a full perception-simulation-memory-reasoning-action loop, evaluated on benchmarks such as MiniGrid, Crafter, and Habitat for sample efficiency, generalization, and interpretability.',
+      keywords: ['Artificial General Intelligence', 'World Models', 'Differentiable Neural Computer', 'Neurosymbolic AI', 'Meta-Learning', 'Reinforcement Learning'],
+      pdf: 'papers/embodied-agi-world-models-neurosymbolic.pdf'
+    }
+  };
+
+  function openPaper(id){
+    const p = PAPERS[id];
+    if(!p) return;
+    document.getElementById('modalTag').textContent = p.tag;
+    document.getElementById('modalTag').className = 'paper-tag' + (p.tagClass ? ' ' + p.tagClass : '');
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalMeta').textContent = p.meta;
+    document.getElementById('modalAuthors').textContent = p.authors;
+    document.getElementById('modalIntro').textContent = p.intro;
+    const kwWrap = document.getElementById('modalKeywords');
+    kwWrap.innerHTML = '';
+    p.keywords.forEach(k => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = k;
+      kwWrap.appendChild(span);
+    });
+    document.getElementById('modalDownload').href = p.pdf;
+    document.getElementById('modalRead').href = p.pdf;
+    const extLink = document.getElementById('modalExternal');
+    if(p.external){
+      extLink.href = p.external;
+      extLink.textContent = p.externalLabel || 'View source';
+      extLink.style.display = 'inline-flex';
+    } else {
+      extLink.style.display = 'none';
+    }
+    document.getElementById('paperModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePaper(){
+    document.getElementById('paperModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('paperModal').addEventListener('click', (e) => {
+    if(e.target.id === 'paperModal') closePaper();
+  });
+  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closePaper(); });
+
+  // ---------- Scroll progress ----------
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if(progressBar) progressBar.style.width = pct + '%';
+  }, { passive: true });
+
+  // ---------- Cursor glow ----------
+  const glow = document.getElementById('cursorGlow');
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    window.addEventListener('mousemove', (e) => {
+      if(glow){
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        glow.style.opacity = '1';
+      }
+    });
+  }
+
+  // ---------- Typewriter hero role ----------
+  const ROLES = ['Data Analyst', 'Data Engineer', 'Machine Learning Researcher', 'Computational Astrophysics Researcher'];
+  const roleEl = document.getElementById('heroRole');
+  if(roleEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let ri = 0, ci = 0, deleting = false;
+    function tick(){
+      const current = ROLES[ri];
+      if(!deleting && ci < current.length){ ci++; deleting = false; }
+      else if(!deleting && ci === current.length){ setTimeout(() => { deleting = true; tick(); }, 1600); return; }
+      else if(deleting && ci > 0){ ci--; }
+      else if(deleting && ci === 0){ deleting = false; ri = (ri + 1) % ROLES.length; }
+      roleEl.textContent = current.slice(0, ci);
+      setTimeout(tick, deleting ? 25 : 45);
+    }
+    tick();
+  } else if(roleEl){
+    roleEl.textContent = ROLES[0];
+  }
+
+  // Header scroll state
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`[data-nav][href="#${entry.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Animate hero wave path subtly
+  const wavePath = document.getElementById('wavePath');
+  let t = 0;
+  function animateWave(){
+    t += 0.006;
+    const amp = 18;
+    const d = `M0,${200+Math.sin(t)*amp} C 150,${140+Math.cos(t*1.3)*amp} 300,${260+Math.sin(t*0.8)*amp} 450,${180+Math.cos(t)*amp} C 600,${100+Math.sin(t*1.2)*amp} 750,${220+Math.cos(t*0.9)*amp} 900,${150+Math.sin(t*1.1)*amp} C 1000,${110+Math.cos(t*1.4)*amp} 1100,${190+Math.sin(t)*amp} 1180,${160+Math.cos(t*0.7)*amp}`;
+    if(wavePath) wavePath.setAttribute('d', d);
+    requestAnimationFrame(animateWave);
+  }
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    requestAnimationFrame(animateWave);
+  }
+</script>
+
+</body>
+</html>
